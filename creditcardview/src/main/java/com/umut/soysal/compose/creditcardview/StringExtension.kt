@@ -36,7 +36,7 @@ fun String?.isCardNumberValid(): Boolean {
 
 fun String?.toCreditCardType(): CardType {
     this?.apply {
-        when {
+        return when {
             isVisa(this) -> CardType.VISA
             isMastercard(this) -> CardType.MASTERCARD
             isAmericanExpress(this) -> CardType.AMERICAN_EXPRESS
@@ -46,7 +46,7 @@ fun String?.toCreditCardType(): CardType {
     return CardType.OTHER
 }
 
-private fun isVisa(number: String) = number.isNotEmpty() && number.first() == '4'
+private fun isVisa(number: String) = number.isNotEmpty() && number.substring(0, 1).toIntOrNull() == 4
 
 /**
  * from 51 to 55, until excludes 56
