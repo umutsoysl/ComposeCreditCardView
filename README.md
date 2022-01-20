@@ -14,3 +14,24 @@ Add the dependency
 ```
 implementation 'com.github.umutsoysl:ComposeCreditCardView:1.0.0'
 ```
+
+# Use
+
+```
+ val creditCardModel = CreditCard(
+        creditCardNumber = "4269110112456678",
+        holderName = "Umut Surname",
+        expiration = "02/25",
+        isNfc = true,
+        bankLogo = R.drawable.ngbank,
+        //bankName = "ing bank",
+        textColor = R.color.black,
+        //cardBackgroundImageResource = R.drawable.bg
+        cardBackgroundColor = R.color.teal_700
+    )
+    
+ Row(modifier = Modifier.padding(16.dp)) {
+        CreditCardView(creditCard = creditCardModel)
+    }
+     
+```
