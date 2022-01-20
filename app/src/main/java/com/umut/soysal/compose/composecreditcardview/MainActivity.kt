@@ -3,10 +3,7 @@ package com.umut.soysal.compose.composecreditcardview
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -26,7 +23,7 @@ class MainActivity : ComponentActivity() {
             ComposeCreditCardViewTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    CreateCreditCard()
                 }
             }
         }
@@ -35,20 +32,43 @@ class MainActivity : ComponentActivity() {
 
 @ExperimentalUnitApi
 @Composable
-fun Greeting(name: String) {
-    val model = CreditCard(
-        creditCardNumber = "5269110185933167",
-        holderName = "Zeliha Sena Solmaz",
+fun CreateCreditCard() {
+    val imageCardModel = CreditCard(
+        creditCardNumber = "5269110112456678",
+        holderName = "Umut Surname",
         expiration = "02/25",
         isNfc = true,
-        bankName = "enpara.com",
+        //bankLogo = R.drawable.ngbank,
+        bankName = "ing bank",
         textColor = R.color.black,
+        cardBackgroundImageResource = R.drawable.bg
+        //cardBackgroundColor = R.color.teal_700
+    )
+
+    val colorCardModel = CreditCard(
+        creditCardNumber = "4269110112456678",
+        holderName = "Umut Surname",
+        expiration = "02/25",
+        isNfc = true,
+        bankLogo = R.drawable.ngbank,
+        //bankName = "ing bank",
+        textColor = R.color.black,
+        //cardBackgroundImageResource = R.drawable.bg
         cardBackgroundColor = R.color.teal_700
     )
-    Row(
-        modifier = Modifier.padding(16.dp)
+
+    Column(
     ) {
-        CreditCardView(creditCard = model)
+        Row(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            CreditCardView(creditCard = imageCardModel)
+        }
+        Row(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            CreditCardView(creditCard = colorCardModel)
+        }
     }
 }
 
@@ -57,6 +77,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     ComposeCreditCardViewTheme {
-        Greeting("Android")
+        CreateCreditCard()
     }
 }

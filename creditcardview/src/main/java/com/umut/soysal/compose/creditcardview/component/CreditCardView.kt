@@ -1,7 +1,10 @@
 package com.umut.soysal.compose.creditcardview.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -42,15 +45,19 @@ private fun CardComponent(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .heightIn(0.dp, 250.dp)
-            .testTag("creditCardContainer"),
+            .heightIn(0.dp, dimensionResource(R.dimen.credit_card_max_height))
+            .testTag("creditCardContainer")
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication =  LocalIndication.current
+            ){} ,
         shape = RoundedCornerShape(dimensionResource(id = R.dimen.credit_card_round_corner)),
         contentColor = backgroundColor,
-        elevation = 3.dp
+        elevation = 3.dp,
     ) {
         if(backgroundImage>0) {
             Image(
-                modifier = Modifier.size(300.dp, 240.dp),
+                modifier = Modifier.size(300.dp, dimensionResource(R.dimen.credit_card_image_height)),
                 painter = painterResource(id = backgroundImage),
                 contentScale = ContentScale.FillBounds,
                 contentDescription = null
@@ -85,21 +92,37 @@ fun CreditCardView(
                 lBankName
             ) = createRefs()
 
-            val cardPadding = dimensionResource(R.dimen.credit_card_padding)
+            val mainMargin = dimensionResource(R.dimen.credit_card_padding)
 
-            Text(
-                modifier = Modifier
-                    .constrainAs(lBankName) {
-                        top.linkTo(parent.top, margin = 20.dp)
-                        start.linkTo(parent.start, margin = cardPadding)
-                    }
-                    .testTag("lBankName"),
-                fontWeight = FontWeight.Light,
-                fontFamily = FontFamily.Monospace,
-                fontSize = 13.sp,
-                color = Color(creditCard.textColor),
-                text = if(creditCard.bankName.isEmpty()) "BANK NAME" else creditCard.bankName.uppercase()
-            )
+            if(creditCard.bankName.isNotEmpty() && creditCard.bankLogo == 0) {
+                Text(
+                    modifier = Modifier
+                        .constrainAs(lBankName) {
+                            top.linkTo(parent.top, margin = 20.dp)
+                            start.linkTo(parent.start, margin = mainMargin)
+                        }
+                        .testTag("lBankName"),
+                    fontWeight = FontWeight.Light,
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 13.sp,
+                    color = Color(creditCard.textColor),
+                    text = if (creditCard.bankName.isEmpty()) "BANK NAME" else creditCard.bankName.uppercase()
+                )
+            }
+
+            if(creditCard.bankLogo>0) {
+                Image(
+                    modifier = Modifier
+                        .constrainAs(lBankName) {
+                            top.linkTo(parent.top, margin = mainMargin)
+                            start.linkTo(parent.start, margin = mainMargin)
+                        }
+                        .width(dimensionResource(R.dimen.bank_logo_size))
+                        .testTag("lBankName"),
+                    painter = painterResource(id = creditCard.bankLogo),
+                    contentDescription = null,
+                )
+            }
 
             if(creditCard.isNfc) {
                 Icon(
@@ -122,7 +145,7 @@ fun CreditCardView(
                 modifier = Modifier
                     .constrainAs(iChip) {
                         top.linkTo(parent.top, margin = 50.dp)
-                        start.linkTo(parent.start, margin = cardPadding)
+                        start.linkTo(parent.start, margin = mainMargin)
                     }
                     .size(width = 70.dp, height = 50.dp)
             )
@@ -180,8 +203,8 @@ fun CreditCardView(
                 Image(
                     modifier = Modifier
                         .constrainAs(iCardEntity) {
-                            bottom.linkTo(parent.bottom, margin = cardPadding)
-                            end.linkTo(parent.end, margin = cardPadding)
+                            bottom.linkTo(parent.bottom, margin = mainMargin)
+                            end.linkTo(parent.end, margin = mainMargin)
                         }
                         .width(70.dp)
                         .testTag("iCardEntity"),
@@ -232,9 +255,9 @@ fun AutoSizeText(
 @Composable
 private fun CreditCardPreview() {
     val creditCard = CreditCard(
-        creditCardNumber = "4063863143855721",
-        holderName = "Umut Soysal",
-        expiration = "12/23",
+        creditCardNumber = "4063823146878891",
+        holderName = "Umut Surname",
+        expiration = "12/27",
         cvc = "123",
         bankName = " QNB FINANSBANK",
         cardBackgroundColor = R.color.cardview_shadow_end_color

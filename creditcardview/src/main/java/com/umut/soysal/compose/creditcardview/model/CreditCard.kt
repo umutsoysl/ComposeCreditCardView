@@ -14,6 +14,7 @@ data class CreditCard (
     var cardBackgroundImageResource: Int = 0,
     var isNfc: Boolean = true,
     var bankName: String = "",
+    var bankLogo: Int = 0,
     var textColor: Int = 0,
     var cardBackgroundColor: Int = Color.TRANSPARENT
 ){
