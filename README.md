@@ -7,17 +7,17 @@ Jetpack Compose Credit Card View Library
 # Setup
 
 Add Jitpack
-```
+```java
 maven { url 'https://jitpack.io' }
 ```
 Add the dependency
-```
+```java
 implementation 'com.github.umutsoysl:ComposeCreditCardView:1.0.0'
 ```
 
 # Use
 
-```
+```java
  val creditCardModel = CreditCard(
         creditCardNumber = "4269110112456678",
         holderName = "Umut Surname",
