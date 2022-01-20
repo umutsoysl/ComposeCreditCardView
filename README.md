@@ -17,7 +17,7 @@ implementation 'com.github.umutsoysl:ComposeCreditCardView:1.0.0'
 
 # Use
 
-```java
+```kotlin
  val creditCardModel = CreditCard(
         creditCardNumber = "4269110112456678",
         holderName = "Umut Surname",
