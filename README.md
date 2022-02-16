@@ -12,7 +12,7 @@ maven { url 'https://jitpack.io' }
 ```
 Add the dependency
 ```java
-implementation 'com.github.umutsoysl:ComposeCreditCardView:1.0.0'
+implementation 'com.github.umutsoysl:ComposeCreditCardView:1.0.1'
 ```
 
 # Use
